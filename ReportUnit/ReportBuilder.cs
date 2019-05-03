@@ -220,9 +220,17 @@
                 html = html.Replace(ReportHelper.MarkupFlag("inserttest"), "")
                         .Replace(ReportHelper.MarkupFlag("insertfixture"), HTML.File.Fixture)
                         .Replace(ReportHelper.MarkupFlag("fixturename"), suite.Name)
-                        .Replace(ReportHelper.MarkupFlag("fixtureresult"), suite.Status.ToString().ToLower());
+                        .Replace(ReportHelper.MarkupFlag("fixtureset"), suite.Set)
+                        .Replace(ReportHelper.MarkupFlag("FIXTUREOWNER"), suite.FeatureOwner);
 
-                if (!string.IsNullOrWhiteSpace(suite.StatusMessage))
+				if(suite.failedCount == "0")
+					html = html.Replace(ReportHelper.MarkupFlag("fixtureresult"), suite.Status.ToString().ToLower())
+							.Replace(ReportHelper.MarkupFlag("fixtureresultcount"), "");
+				else
+					html = html.Replace(ReportHelper.MarkupFlag("fixtureresult"), suite.Status.ToString().ToLower())
+							.Replace(ReportHelper.MarkupFlag("fixtureresultcount"), " : " +  suite.failedCount);
+
+				if (!string.IsNullOrWhiteSpace(suite.StatusMessage))
                 {
                     html = html.Replace(ReportHelper.MarkupFlag("fixturestatusmsg"), suite.StatusMessage);
                 }
@@ -267,20 +275,25 @@
 
                     foreach (string category in test.Categories)
                     {
-                        html = html.Replace(ReportHelper.MarkupFlag("testFeature"), category + " " + ReportHelper.MarkupFlag("testFeature"));
+                        //html = html.Replace(ReportHelper.MarkupFlag("testFeature"), category + " " + ReportHelper.MarkupFlag("testFeature"));
+						html = html.Replace(ReportHelper.MarkupFlag("testFeature"), category + " " + suite.FeatureOwner + " " + ReportHelper.MarkupFlag("testFeature"));
 
-                        // add all categories to create filters
-                        if (!categories.Contains(category))
-                        {
-                            categories.Add(category);
-                        }
-                    }
+						// add all categories to create filters
+						//if (!categories.Contains(category))
+						//{
+						//    categories.Add(category);
+						//}
+					}
 
-                    html = html.Replace(ReportHelper.MarkupFlag("testFeature"), "");
+					html = html.Replace(ReportHelper.MarkupFlag("testFeature"), "");
                 }
-            }
 
-            if (categories.Count == 0)
+				if (!categories.Contains(suite.FeatureOwner))
+					categories.Add(suite.FeatureOwner);
+
+			}
+
+			if (categories.Count == 0)
             {
                 html = html.Replace(ReportHelper.MarkupFlag("optionalCss"), "<style>.feature-toggle { display: none; }</style>");
             }

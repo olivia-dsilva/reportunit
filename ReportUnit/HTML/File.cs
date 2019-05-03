@@ -454,7 +454,7 @@
                                                     <!--%CATEGORYLIST%-->
                                                     <option value='x'>Clear Filters</option>
                                                 </select>
-                                                <label>Filter Features</label>
+                                                <label>Filter Feature Owner</label>
                                             </div>
                                             <div class='switch toggle-type'>
                                                 <label>
@@ -720,7 +720,9 @@
                             <div class='card-panel'>
                                 <div class='fixture-head'>
                                     <span class='fixture-name'><!--%FIXTURENAME%--></span>
-                                    <span class='fixture-result <!--%FIXTURERESULT%-->'><!--%FIXTURERESULT%--></span>
+                                    <span class='fixture-result <!--%FIXTURERESULT%-->'><!--%FIXTURERESULT%--><!--%FIXTURERESULTCOUNT%--></span>
+									<span class='fixture-result warning'><!--%FIXTURESET%--></span>
+                                    <span class='fixture-result'><!--%FIXTUREOWNER%--></span>
                                 </div>
                                 <div class='fixture-content'>
                                     <div class='card fixture-status-message'>

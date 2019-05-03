@@ -179,6 +179,17 @@ namespace ReportUnit.Parser
             {
                 var testSuite = new TestSuite();
 				testSuite.Name = suite.Attributes["name"].InnerText.Replace(_fileNameWithoutExtension + ".", "").Trim();
+				testSuite.failedCount = suite.Attributes["failed"].InnerText;
+
+                try
+                {
+                    string set = suite.SelectSingleNode(".//properties/property[@name='Category' and starts-with(@value,'Set')]").Attributes["value"].InnerText;
+                    testSuite.Set = set;
+
+                    string featureOwner = suite.SelectSingleNode(".//properties/property[@name='Category' and contains(@value,'.')]").Attributes["value"].InnerText;
+                    testSuite.FeatureOwner = featureOwner;
+                }
+                catch (Exception) { testSuite.FeatureOwner = "Unknown"; }
 
                 if (suite.Attributes["start-time"] != null && suite.Attributes["end-time"] != null)
                 {

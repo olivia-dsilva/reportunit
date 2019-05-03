@@ -17,6 +17,12 @@
 
         public Status Status { get; set; }
 
+		public string failedCount { get; set; } 
+
+		public string Set { get; set; }
+
+        public string FeatureOwner { get; set; }
+
         /// <summary>
         /// Error messages, description, etc
         /// </summary>
