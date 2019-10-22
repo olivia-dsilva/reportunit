@@ -34,6 +34,6 @@ steps:
 
 - task: PublishPipelineArtifact@1
   inputs:
-    targetPath: '.\obj\Release\ReportUnit.exe'
+    targetPath: '$(Pipeline.Workspace)\obj\Release\ReportUnit.exe'
     artifact: 'Olivia'
     publishLocation: 'pipeline'
