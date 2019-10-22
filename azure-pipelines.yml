@@ -31,3 +31,9 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Build.BinariesDirectory)/ReportUnit.exe'
+    artifact: 'Olivia'
+    publishLocation: 'pipeline'
